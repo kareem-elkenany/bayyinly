@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Note: You will need to add these icons to your res/drawable folder -->
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_quran"
+        android:icon="@drawable/ic_quran"
+        android:title="Quran" />
+
+    <item
+        android:id="@+id/nav_qibla"
+        android:icon="@drawable/ic_qibla"
+        android:title="Qibla" />
+
+    <item
+        android:id="@+id/nav_duas"
+        android:icon="@drawable/ic_dua"
+        android:title="Duas" />
+
+    <item
+        android:id="@+id/nav_tasbih"
+        android:icon="@drawable/ic_tasbih"
+        android:title="Tasbih" />
+
+
+</menu>
