@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_quran"> <!-- Setting Quran as the starting screen -->
+
+    <!-- Home/Dashboard Destination -->
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.bayyinly.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <!-- Quran Destination (Matches your menu ID) -->
+    <fragment
+        android:id="@+id/nav_quran"
+        android:name="com.example.bayyinly.ui.quran.SurahListFragment"
+        android:label="Quran"
+        tools:layout="@layout/fragment_surah_list" />
+
+    <!-- Qibla Destination -->
+    <fragment
+        android:id="@+id/nav_qibla"
+        android:name="com.example.bayyinly.ui.qibla.QiblaFragment"
+        android:label="Qibla"
+        tools:layout="@layout/fragment_qibla" />
+
+    <!-- Duas Destination -->
+    <fragment
+        android:id="@+id/nav_duas"
+        android:name="com.example.bayyinly.ui.dua.DuaCategoryFragment"
+        android:label="Duas"
+        tools:layout="@layout/fragment_dua_category" />
+
+    <!-- Tasbih Destination -->
+    <fragment
+        android:id="@+id/nav_tasbih"
+        android:name="com.example.bayyinly.ui.tasbih.TasbihFragment"
+        android:label="Tasbih"
+        tools:layout="@layout/fragment_tasbih" />
+
+    <!-- AI Chat Destination -->
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.example.bayyinly.ui.chat.ChatFragment"
+        android:label="AI Assistant"
+        tools:layout="@layout/fragment_chat" />
+
+    <!-- The Reading Screen -->
+    <fragment
+        android:id="@+id/readingFragment"
+        android:name="com.example.bayyinly.ui.quran.ReadingFragment"
+        android:label="Read Surah"
+        tools:layout="@layout/fragment_reading" />
+
+</navigation>
