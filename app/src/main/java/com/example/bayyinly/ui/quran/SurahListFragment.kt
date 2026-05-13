@@ -13,6 +13,7 @@ import com.example.bayyinly.ui.quran.SurahAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.core.os.bundleOf
 import com.example.bayyinly.R
+import androidx.core.widget.addTextChangedListener
 
 class SurahListFragment : Fragment() {
 
@@ -40,11 +41,24 @@ class SurahListFragment : Fragment() {
             val bundle = bundleOf("surahId" to clickedSurahId)
 
             // Navigate to the Reading screen, passing the bundle!
-            findNavController().navigate(R.id.readingFragment, bundle)
+            findNavController().navigate(R.id.action_nav_quran_to_readingFragment, bundle)
         }
 
         // 3. Attach the Adapter to the UI
         binding.recyclerViewSurahs.adapter = adapter
+
+        binding.etSearch.addTextChangedListener { text ->
+            val query = text.toString().lowercase()
+
+            // Filter the static list based on the search query
+            val filteredList = SurahData.surahs.filter {
+                it.englishName.lowercase().contains(query) ||
+                        it.arabicName.contains(query)
+            }
+
+            // Give the new list to the adapter
+            adapter.updateList(filteredList)
+        }
     }
 
     override fun onDestroyView() {

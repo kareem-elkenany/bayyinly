@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.bayyinly.R
 import com.example.bayyinly.databinding.ActivityMainBinding
+import android.view.View
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,5 +26,15 @@ class MainActivity : AppCompatActivity() {
 
         // 3. Link the Bottom Navigation View to the NavController
         binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.readingFragment) { // Use your actual Fragment ID here
+                // Hide it on the Reading Screen
+                binding.bottomNav.visibility = View.GONE
+            } else {
+                // Show it everywhere else (Home, List, Settings, etc.)
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+        }
     }
 }

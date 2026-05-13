@@ -7,7 +7,7 @@ import com.example.bayyinly.databinding.ItemSurahBinding
 import com.example.bayyinly.model.SurahItem
 
 class SurahAdapter(
-    private val surahs: List<SurahItem>,
+    private var surahs: List<SurahItem>,
     private val onSurahClick: (Int) -> Unit
 ) : RecyclerView.Adapter<SurahAdapter.SurahViewHolder>() {
 
@@ -37,5 +37,10 @@ class SurahAdapter(
 
     override fun getItemCount(): Int {
         return surahs.size
+    }
+
+    fun updateList(filteredList: List<SurahItem>) {
+        surahs = filteredList
+        notifyDataSetChanged()
     }
 }

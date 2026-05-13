@@ -17,7 +17,11 @@
         android:id="@+id/nav_quran"
         android:name="com.example.bayyinly.ui.quran.SurahListFragment"
         android:label="Quran"
-        tools:layout="@layout/fragment_surah_list" />
+        tools:layout="@layout/fragment_surah_list" >
+        <action
+            android:id="@+id/action_nav_quran_to_readingFragment"
+            app:destination="@id/readingFragment" />
+    </fragment>
 
     <!-- Qibla Destination -->
     <fragment
