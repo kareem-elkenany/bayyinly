@@ -6,35 +6,35 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.bayyinly.model.entity.QuranText
 import com.example.bayyinly.model.entity.TranslationText
+import com.example.bayyinly.model.entity.UserStats
+import com.example.bayyinly.model.ReadAyah
 import com.example.bayyinly.model.local.QuranDao
+import com.example.bayyinly.model.local.UserStatsDao
 
-
-// 1. Tell Room which Entities belong to this database
-@Database(entities = [QuranText::class, TranslationText::class], version = 1, exportSchema = false)
+@Database(
+    entities = [QuranText::class, TranslationText::class, UserStats::class, ReadAyah::class],
+    version = 3,
+    exportSchema = false
+)
 abstract class QuranDatabase : RoomDatabase() {
 
-    // 2. Connect the DAO
     abstract fun quranDao(): QuranDao
+    abstract fun userStatsDao(): UserStatsDao
 
-    // 3. Create a Singleton to prevent opening multiple database instances at once
     companion object {
-        @Volatile //Thread safety
+        @Volatile
         private var INSTANCE: QuranDatabase? = null
 
         fun getDatabase(context: Context): QuranDatabase {
-            // If the instance exists, return it. Otherwise, build it.
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     QuranDatabase::class.java,
-                    "quran_database" // The internal name Android uses
+                    "quran_database"
                 )
-                    // THIS IS THE MAGIC LINE:
-                    // It copies your pre-made file from the assets folder!
                     .createFromAsset("quran_offline.db")
                     .fallbackToDestructiveMigration()
                     .build()
-
                 INSTANCE = instance
                 instance
             }

@@ -3,14 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_quran"> <!-- Setting Quran as the starting screen -->
+    app:startDestination="@id/nav_home"> <!-- 1. Changed starting screen to Home -->
 
     <!-- Home/Dashboard Destination -->
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.bayyinly.ui.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+        <!-- 2. Action to allow the Ask AI button to navigate to Chat -->
+        <action
+            android:id="@+id/action_nav_home_to_nav_chat"
+            app:destination="@id/nav_chat" />
+    </fragment>
 
     <!-- Quran Destination (Matches your menu ID) -->
     <fragment
@@ -18,6 +24,7 @@
         android:name="com.example.bayyinly.ui.quran.SurahListFragment"
         android:label="Quran"
         tools:layout="@layout/fragment_surah_list" >
+
         <action
             android:id="@+id/action_nav_quran_to_readingFragment"
             app:destination="@id/readingFragment" />
@@ -56,6 +63,13 @@
         android:id="@+id/readingFragment"
         android:name="com.example.bayyinly.ui.quran.ReadingFragment"
         android:label="Read Surah"
-        tools:layout="@layout/fragment_reading" />
+        tools:layout="@layout/fragment_reading" >
+
+        <!-- 3. Explicitly declaring the argument this fragment expects -->
+        <argument
+            android:name="surahId"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 
 </navigation>

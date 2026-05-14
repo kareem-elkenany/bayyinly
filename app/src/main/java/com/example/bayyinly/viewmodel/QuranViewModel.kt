@@ -6,12 +6,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.bayyinly.model.CombinedVerse
 import com.example.bayyinly.model.Reciter
 import com.example.bayyinly.repository.QuranRepository
+import com.example.bayyinly.repository.UserStatsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.*
 
-class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
+class QuranViewModel(
+    private val repository: QuranRepository,
+    private val statsRepository: UserStatsRepository
+) : ViewModel() {
+
+    // Unique session tracking to avoid redundant DB calls while scrolling or repeating audio
+    private val readAyahIdsInSession = mutableSetOf<Int>()
 
     fun getSurahVerses(surahId: Int): Flow<List<CombinedVerse>> {
         return repository.getSurahWithTranslation(surahId)
@@ -26,7 +34,6 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
     private val _isPlaying = MutableStateFlow(false)
     val isPlaying = _isPlaying.asStateFlow()
 
-    // FIX: Explicitly telling Kotlin this is an Integer that can be null (<Int?>)
     private val _activeVerseId = MutableStateFlow<Int?>(null)
     val activeVerseId = _activeVerseId.asStateFlow()
 
@@ -42,8 +49,6 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
             try {
                 val response = repository.getReciters()
                 if (response.isSuccessful && response.body() != null) {
-
-                    // The Verified Whitelist (Guaranteed 128kbps Arabic Audio)
                     val reliableIdentifiers = setOf(
                         "ar.alafasy", "ar.abdulbasitmurattal", "ar.sudais",
                         "ar.shuraim", "ar.minshawi", "ar.husary",
@@ -58,7 +63,6 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
                     }
 
                     _recitersList.value = safeReciters
-
                     if (safeReciters.isNotEmpty() && selectedReciterIdentifier == "ar.alafasy") {
                         selectedReciterIdentifier = safeReciters[0].identifier
                     }
@@ -90,36 +94,59 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
         val absoluteAyahId = currentPlaylist[currentPlayIndex]
         _currentAudioUrl.value = repository.getAudioStreamUrl(selectedReciterIdentifier, absoluteAyahId)
         _isPlaying.value = true
-
-        // Tell the UI which Ayah to highlight
         _activeVerseId.value = absoluteAyahId
     }
 
+    /**
+     * Logic updated to use the new unique tracking system.
+     */
     fun onAyahAudioFinished() {
+        // Track the Ayah that just finished playing
+        markAyahAsRead(currentPlaylist[currentPlayIndex])
+
         if (currentPlayIndex < targetEndIndex && currentPlayIndex < currentPlaylist.size - 1) {
             currentPlayIndex++
             val nextAbsoluteId = currentPlaylist[currentPlayIndex]
             _currentAudioUrl.value = repository.getAudioStreamUrl(selectedReciterIdentifier, nextAbsoluteId)
-
-            // Update highlight to the next Ayah
             _activeVerseId.value = nextAbsoluteId
         } else {
             _currentAudioUrl.value = null
             _isPlaying.value = false
-
-            // Remove highlight when sequence finishes
             _activeVerseId.value = null
+        }
+    }
+
+    /**
+     * Public function for both Audio logic and Manual Scroll tracking.
+     */
+    fun markAyahAsRead(ayahId: Int) {
+        if (!readAyahIdsInSession.contains(ayahId)) {
+            viewModelScope.launch {
+                statsRepository.markAyahAsRead(ayahId) // Uses OnConflictStrategy.IGNORE internally
+                readAyahIdsInSession.add(ayahId)
+            }
+        }
+    }
+
+    /**
+     * Resets all progress. Call this from a "Settings" or "Reset" button.
+     */
+    fun resetKhatmaProgress() {
+        viewModelScope.launch {
+            statsRepository.resetAllProgress()
+            readAyahIdsInSession.clear() // Clear in-memory cache too
         }
     }
 
     fun playNextAyah() {
         if (currentPlayIndex < targetEndIndex && currentPlayIndex < currentPlaylist.size - 1) {
+            // Optional: Mark as read even if they skip, if they listened to most of it
+            markAyahAsRead(currentPlaylist[currentPlayIndex])
+
             currentPlayIndex++
             val nextAbsoluteId = currentPlaylist[currentPlayIndex]
             _currentAudioUrl.value = repository.getAudioStreamUrl(selectedReciterIdentifier, nextAbsoluteId)
             _isPlaying.value = true
-
-            // Update highlight
             _activeVerseId.value = nextAbsoluteId
         }
     }
@@ -130,8 +157,6 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
             val prevAbsoluteId = currentPlaylist[currentPlayIndex]
             _currentAudioUrl.value = repository.getAudioStreamUrl(selectedReciterIdentifier, prevAbsoluteId)
             _isPlaying.value = true
-
-            // Update highlight
             _activeVerseId.value = prevAbsoluteId
         }
     }
@@ -143,11 +168,14 @@ class QuranViewModel(private val repository: QuranRepository) : ViewModel() {
     fun getCurrentPlayIndex() = currentPlayIndex
 }
 
-class QuranViewModelFactory(private val repository: QuranRepository) : ViewModelProvider.Factory {
+class QuranViewModelFactory(
+    private val repository: QuranRepository,
+    private val statsRepository: UserStatsRepository
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(QuranViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return QuranViewModel(repository) as T
+            return QuranViewModel(repository, statsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

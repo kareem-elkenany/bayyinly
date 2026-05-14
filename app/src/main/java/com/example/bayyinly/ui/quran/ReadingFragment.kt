@@ -16,11 +16,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bayyinly.database.QuranDatabase
 import com.example.bayyinly.databinding.FragmentReadingBinding
 import com.example.bayyinly.model.SurahData
 import com.example.bayyinly.network.RetrofitClient
 import com.example.bayyinly.repository.QuranRepository
+import com.example.bayyinly.repository.UserStatsRepository
 import com.example.bayyinly.viewmodel.QuranViewModel
 import com.example.bayyinly.viewmodel.QuranViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
@@ -51,7 +53,8 @@ class ReadingFragment : Fragment() {
         // 1. Get the Surah ID & Setup Adapter
         val surahId = arguments?.getInt("surahId") ?: 1
         adapter = AyahAdapter { toggleAudioPanel() }
-        binding.recyclerViewAyahs.layoutManager = LinearLayoutManager(requireContext())
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewAyahs.layoutManager = layoutManager
         binding.recyclerViewAyahs.adapter = adapter
 
         // 2. Set the Header Title
@@ -60,11 +63,38 @@ class ReadingFragment : Fragment() {
         val arabicName = currentSurah?.arabicName ?: "Unknown"
         binding.tvSurahNameTitle.text = "$surahId. $englishName ($arabicName)"
 
-        // 3. Initialize ViewModel
-        val dao = QuranDatabase.getDatabase(requireContext()).quranDao()
-        val repository = QuranRepository(dao, RetrofitClient.apiService)
-        val factory = QuranViewModelFactory(repository)
+        // 3. Initialize Repositories and ViewModel (UPDATED FOR KHATMA TRACKING)
+        val database = QuranDatabase.getDatabase(requireContext())
+        val quranDao = database.quranDao()
+        val statsDao = database.userStatsDao()
+
+        val quranRepository = QuranRepository(quranDao, RetrofitClient.apiService)
+        val statsRepository = UserStatsRepository(statsDao)
+
+        val factory = QuranViewModelFactory(quranRepository, statsRepository)
         viewModel = ViewModelProvider(this, factory)[QuranViewModel::class.java]
+
+        // --- NEW: MANUAL READING TRACKER ---
+        binding.recyclerViewAyahs.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                // Find all currently visible items on the screen
+                val firstVisible = layoutManager.findFirstVisibleItemPosition()
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+
+                if (firstVisible != RecyclerView.NO_POSITION && lastVisible != RecyclerView.NO_POSITION) {
+                    val currentList = adapter.currentList
+                    // Loop through the visible items and tell the ViewModel they were "read"
+                    for (i in firstVisible..lastVisible) {
+                        if (i in currentList.indices) {
+                            val ayah = currentList[i]
+                            viewModel.markAyahAsRead(ayah.id)
+                        }
+                    }
+                }
+            }
+        })
 
         // --- 4. OBSERVE DATA STATES ---
 
@@ -88,7 +118,7 @@ class ReadingFragment : Fragment() {
                     binding.spinnerStartAyah.setSelection(0, false)
                     binding.spinnerEndAyah.setSelection(verses.size - 1, false)
 
-                    // --- FIX: DETECT REAL-TIME DROPDOWN CHANGES ---
+                    // FIX: DETECT REAL-TIME DROPDOWN CHANGES
                     val rangeChangeListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                             // Only auto-restart if the audio engine has already been activated!
@@ -139,7 +169,7 @@ class ReadingFragment : Fragment() {
 
         // --- 5. OBSERVE VIEWMODEL AUDIO STATE ---
 
-        // NEW: Observe the Active Verse for Highlighting & Auto-Scrolling
+        // Observe the Active Verse for Highlighting & Auto-Scrolling
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.activeVerseId.collectLatest { activeId ->
                 // 1. Tell the adapter to highlight the verse
@@ -170,7 +200,7 @@ class ReadingFragment : Fragment() {
                     mediaPlayer?.stop()
                     mediaPlayer?.release()
                     mediaPlayer = null
-                    // NEW: Clear the highlight when playback finishes completely
+                    // Clear the highlight when playback finishes completely
                     adapter.setActiveVerse(null)
                 }
             }

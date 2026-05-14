@@ -7,6 +7,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.bayyinly.R
 import com.example.bayyinly.databinding.ActivityMainBinding
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        // Import this at the top: androidx.appcompat.app.AppCompatDelegate
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(binding.root)
 
         // 1. Get the Navigation Host Fragment
