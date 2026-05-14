@@ -40,17 +40,22 @@ class HomeViewModel(
 
     private var timer: CountDownTimer? = null
 
+    // Cache variables to remember location for auto-refresh
+    private var lastLat: Double = 30.0444
+    private var lastLng: Double = 31.2357
+
     init {
-        loadHomeData()
+        fetchUserStats()
     }
 
     /**
      * Orchestrates the initial data load for the Home screen.
      */
-    fun loadHomeData() {
-        // Placeholder for Cairo, Egypt. You can replace this with actual GPS coords later.
-        fetchPrayerTimesByCoords(30.0444, 31.2357)
-        fetchUserStats()
+    fun loadHomeData(lat: Double, lng: Double) {
+        // Save the coordinates for when the timer resets
+        lastLat = lat
+        lastLng = lng
+        fetchPrayerTimesByCoords(lat, lng)
     }
 
     private fun fetchPrayerTimesByCoords(lat: Double, lng: Double) {
@@ -155,7 +160,8 @@ class HomeViewModel(
             }
 
             override fun onFinish() {
-                loadHomeData() // Auto-refresh when the timer hits zero
+                // Pass the cached coordinates so it doesn't crash here
+                loadHomeData(lastLat, lastLng)
             }
         }.start()
     }

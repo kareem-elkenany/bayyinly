@@ -1,10 +1,17 @@
 package com.example.bayyinly.ui.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,13 +24,12 @@ import com.example.bayyinly.repository.PrayerRepository
 import com.example.bayyinly.repository.UserStatsRepository
 import com.example.bayyinly.viewmodel.HomeViewModel
 import com.example.bayyinly.viewmodel.HomeViewModelFactory
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 
 class HomeFragment : Fragment() {
 
@@ -35,6 +41,21 @@ class HomeFragment : Fragment() {
     private val colorActive = Color.parseColor("#79AE6F")
     private val colorInactive = Color.parseColor("#A39A8A")
     private val colorDark = Color.parseColor("#2D402B")
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    // Permission Launcher for Location
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
+            getDeviceLocation()
+        } else {
+            // FALLBACK: User denied permission, use Cairo coordinates
+            viewModel.loadHomeData(30.0444, 31.2357)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +70,16 @@ class HomeFragment : Fragment() {
         setupViewModel()
         observeViewModel()
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        checkLocationPermissions()
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-            // Apply the status bar height as a top margin to the Ask AI card
             binding.cvAskAi.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top + (24 * resources.displayMetrics.density).toInt()
             }
 
-            // Also push the prayer header down slightly to keep the balance
             binding.llCurrentPrayer.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top + (80 * resources.displayMetrics.density).toInt()
             }
@@ -85,6 +107,42 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun checkLocationPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Permission is already granted
+            getDeviceLocation()
+        } else {
+            // Request permissions
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
+    private fun getDeviceLocation() {
+        // FIX: The compiler requires this explicit check right before calling lastLocation
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    // Success! Pass actual coordinates to ViewModel
+                    viewModel.loadHomeData(location.latitude, location.longitude)
+                } else {
+                    // Fallback to Cairo if location is null (common on fresh emulators)
+                    viewModel.loadHomeData(30.0444, 31.2357)
+                }
+            }
+        } else {
+            // Fallback if permissions are missing
+            viewModel.loadHomeData(30.0444, 31.2357)
+        }
+    }
+
     private fun setupViewModel() {
         val db = QuranDatabase.getDatabase(requireContext())
         val prayerApi = RetrofitClient.prayerApiService
@@ -105,7 +163,6 @@ class HomeFragment : Fragment() {
 
             launch {
                 viewModel.nextPrayerTime.collectLatest { time ->
-                    // FIX: Convert main display time to 12-hour
                     binding.tvPrayerTime.text = formatTo12Hour(time)
                 }
             }
@@ -131,7 +188,6 @@ class HomeFragment : Fragment() {
             launch {
                 viewModel.prayerTimings.collectLatest { timings ->
                     timings?.let {
-                        // FIX: Added 12-hour formatting and corrected Dhuhr reference
                         binding.tvTimelineFajr.text = "Fajr\n${formatTo12Hour(it.fajr)}"
                         binding.tvTimelineDhuhr.text = "Dhuhr\n${formatTo12Hour(it.dhuhr)}"
                         binding.tvTimelineAsr.text = "Asr\n${formatTo12Hour(it.asr)}"
@@ -143,23 +199,19 @@ class HomeFragment : Fragment() {
         }
     }
 
-    /**
-     * Helper to convert "15:45 (EEST)" or "15:45" to "3:45 PM"
-     */
     private fun formatTo12Hour(time24: String): String {
         return try {
-            val cleanTime = time24.split(" ")[0] // Remove (EEST) etc
+            val cleanTime = time24.split(" ")[0]
             val sdf24 = SimpleDateFormat("HH:mm", Locale.getDefault())
             val sdf12 = SimpleDateFormat("h:mm a", Locale.getDefault())
             val date = sdf24.parse(cleanTime)
             sdf12.format(date!!)
         } catch (e: Exception) {
-            time24 // Fallback to original if parsing fails
+            time24
         }
     }
 
     private fun updateTimelineHighlight(nextPrayer: String) {
-        // 1. Reset all nodes and texts
         val allTexts = listOf(binding.tvTimelineFajr, binding.tvTimelineDhuhr, binding.tvTimelineAsr, binding.tvTimelineMaghrib, binding.tvTimelineIsha)
         val allNodes = listOf(binding.nodeFajr, binding.nodeDhuhr, binding.nodeAsr, binding.nodeMaghrib, binding.nodeIsha)
 
@@ -173,29 +225,26 @@ class HomeFragment : Fragment() {
             it.layoutParams = params
         }
 
-        // 2. Logic: If Next is X, then Current is the one BEFORE X.
-        // We highlight the CURRENT prayer dot.
         when (nextPrayer) {
             "Dhuhr" -> {
                 highlightNode(binding.tvTimelineFajr, binding.nodeFajr, colorActive)
-                binding.pbTimelineProgress.progress = 15 // Bar is between Fajr and Dhuhr
+                binding.pbTimelineProgress.progress = 15
             }
             "Asr" -> {
                 highlightNode(binding.tvTimelineDhuhr, binding.nodeDhuhr, colorActive)
-                binding.pbTimelineProgress.progress = 35 // Bar is between Dhuhr and Asr
+                binding.pbTimelineProgress.progress = 35
             }
             "Maghrib" -> {
                 highlightNode(binding.tvTimelineAsr, binding.nodeAsr, colorActive)
-                binding.pbTimelineProgress.progress = 55 // Bar is between Asr and Maghrib
+                binding.pbTimelineProgress.progress = 55
             }
             "Isha" -> {
                 highlightNode(binding.tvTimelineMaghrib, binding.nodeMaghrib, colorDark)
-                binding.pbTimelineProgress.progress = 75 // Bar is between Maghrib and Isha
+                binding.pbTimelineProgress.progress = 75
             }
             "Fajr" -> {
-                // If the next prayer is Fajr, it means it's currently night time (after Isha)
                 highlightNode(binding.tvTimelineIsha, binding.nodeIsha, colorDark)
-                binding.pbTimelineProgress.progress = 95 // Bar is past Isha
+                binding.pbTimelineProgress.progress = 95
             }
         }
     }
