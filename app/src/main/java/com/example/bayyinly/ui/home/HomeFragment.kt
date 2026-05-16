@@ -123,8 +123,9 @@ class HomeFragment : Fragment() {
             permissions.add(Manifest.permission.POST_NOTIFICATIONS)
         }
 
+        val context = context ?: return
         val missingPermissions = permissions.filter {
-            ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_GRANTED
+            ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED
         }
 
         if (missingPermissions.isEmpty()) {
@@ -135,10 +136,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun getDeviceLocation() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        val currentContext = context ?: return
+        if (ContextCompat.checkSelfPermission(currentContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(currentContext, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (!isAdded) return@addOnSuccessListener
                 if (location != null) {
                     viewModel.loadHomeData(location.latitude, location.longitude)
                     startPrayerService(location.latitude, location.longitude)
@@ -158,13 +161,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun startPrayerService(lat: Double, lng: Double) {
-        val intent = Intent(requireContext(), PrayerNotificationService::class.java)
+        val currentContext = context ?: return
+        val intent = Intent(currentContext, PrayerNotificationService::class.java)
         intent.putExtra("lat", lat)
         intent.putExtra("lng", lng)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            requireContext().startForegroundService(intent)
+            currentContext.startForegroundService(intent)
         } else {
-            requireContext().startService(intent)
+            currentContext.startService(intent)
         }
     }
 
@@ -253,19 +257,19 @@ class HomeFragment : Fragment() {
         when (nextPrayer) {
             "Dhuhr" -> {
                 highlightNode(binding.tvTimelineFajr, binding.nodeFajr, colorActive)
-                binding.pbTimelineProgress.progress = 5
+                binding.pbTimelineProgress.progress = 10
             }
             "Asr" -> {
                 highlightNode(binding.tvTimelineDhuhr, binding.nodeDhuhr, colorActive)
-                binding.pbTimelineProgress.progress = 28
+                binding.pbTimelineProgress.progress = 30
             }
             "Maghrib" -> {
                 highlightNode(binding.tvTimelineAsr, binding.nodeAsr, colorActive)
-                binding.pbTimelineProgress.progress = 52
+                binding.pbTimelineProgress.progress = 50
             }
             "Isha" -> {
                 highlightNode(binding.tvTimelineMaghrib, binding.nodeMaghrib, colorDark)
-                binding.pbTimelineProgress.progress = 76
+                binding.pbTimelineProgress.progress = 70
             }
             "Fajr" -> {
                 highlightNode(binding.tvTimelineIsha, binding.nodeIsha, colorDark)
