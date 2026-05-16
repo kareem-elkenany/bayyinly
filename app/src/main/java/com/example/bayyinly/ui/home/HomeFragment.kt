@@ -253,23 +253,23 @@ class HomeFragment : Fragment() {
         when (nextPrayer) {
             "Dhuhr" -> {
                 highlightNode(binding.tvTimelineFajr, binding.nodeFajr, colorActive)
-                binding.pbTimelineProgress.progress = 15
+                binding.pbTimelineProgress.progress = 5
             }
             "Asr" -> {
                 highlightNode(binding.tvTimelineDhuhr, binding.nodeDhuhr, colorActive)
-                binding.pbTimelineProgress.progress = 35
+                binding.pbTimelineProgress.progress = 28
             }
             "Maghrib" -> {
                 highlightNode(binding.tvTimelineAsr, binding.nodeAsr, colorActive)
-                binding.pbTimelineProgress.progress = 55
+                binding.pbTimelineProgress.progress = 52
             }
             "Isha" -> {
                 highlightNode(binding.tvTimelineMaghrib, binding.nodeMaghrib, colorDark)
-                binding.pbTimelineProgress.progress = 75
+                binding.pbTimelineProgress.progress = 76
             }
             "Fajr" -> {
                 highlightNode(binding.tvTimelineIsha, binding.nodeIsha, colorDark)
-                binding.pbTimelineProgress.progress = 95
+                binding.pbTimelineProgress.progress = 100
             }
         }
     }

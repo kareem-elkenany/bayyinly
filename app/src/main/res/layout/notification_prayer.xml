@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/green"
+    android:background="#F3EFE0"
     android:orientation="horizontal"
     android:padding="8dp"
     android:gravity="center_vertical">
@@ -13,7 +13,7 @@
         android:layout_height="24dp"
         android:src="@drawable/ic_mosque"
         android:layout_marginEnd="12dp"
-        android:alpha="0.1"
+        android:alpha="0.5"
         android:contentDescription="Prayer Icon" />
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="---"
-            android:textColor="#FFFFFF"
+            android:textColor="#1A1A1A"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="--:--"
-            android:textColor="#DDF0D7"
+            android:textColor="#424242"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -44,11 +44,11 @@
         android:id="@+id/tvNotificationCountdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#22FFFFFF"
+        android:background="#15000000"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:text="- 00:00:00"
-        android:textColor="#FFD54F"
+        android:textColor="#1B5E20"
         android:textSize="10sp"
         android:textStyle="bold"
         android:fontFamily="monospace" />

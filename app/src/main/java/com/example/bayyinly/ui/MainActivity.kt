@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.readingFragment) { // Use your actual Fragment ID here
-                // Hide it on the Reading Screen
+            if (destination.id == R.id.readingFragment || destination.id == R.id.nav_chat) { 
+                // Hide it on the Reading Screen and Chat Screen
                 binding.bottomNav.visibility = View.GONE
             } else {
                 // Show it everywhere else (Home, List, Settings, etc.)

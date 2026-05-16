@@ -1,18 +1,20 @@
 import org.gradle.kotlin.dsl.implementation
-
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.devtools.ksp")
 }
 
+val envProperties = Properties()
+val envFile = rootProject.file(".env")
+if (envFile.exists()) {
+    envProperties.load(envFile.inputStream())
+}
+
 android {
     namespace = "com.example.bayyinly"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.bayyinly"
@@ -22,6 +24,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Inject the API key into BuildConfig
+        val apiKey = envProperties.getProperty("GEMINI_API_KEY") ?: ""
+        buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -38,9 +44,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -77,4 +83,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("com.google.android.gms:play-services-location:21.2.0")
+
+    // Google AI SDK for Gemini
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 }
