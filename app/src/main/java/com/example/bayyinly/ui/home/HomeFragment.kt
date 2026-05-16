@@ -1,8 +1,10 @@
 package com.example.bayyinly.ui.home
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.bayyinly.R
 import com.example.bayyinly.database.QuranDatabase
 import com.example.bayyinly.databinding.FragmentHomeBinding
+import com.example.bayyinly.network.PrayerNotificationService
 import com.example.bayyinly.network.RetrofitClient
 import com.example.bayyinly.repository.PrayerRepository
 import com.example.bayyinly.repository.UserStatsRepository
@@ -44,7 +47,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    // Permission Launcher for Location
+    // Permission Launcher for Location and Notifications
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -53,7 +56,10 @@ class HomeFragment : Fragment() {
             getDeviceLocation()
         } else {
             // FALLBACK: User denied permission, use Cairo coordinates
-            viewModel.loadHomeData(30.0444, 31.2357)
+            val lat = 30.0444
+            val lng = 31.2357
+            viewModel.loadHomeData(lat, lng)
+            startPrayerService(lat, lng)
         }
     }
 
@@ -71,7 +77,7 @@ class HomeFragment : Fragment() {
         observeViewModel()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        checkLocationPermissions()
+        checkPermissions()
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -107,39 +113,58 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun checkLocationPermissions() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Permission is already granted
+    private fun checkPermissions() {
+        val permissions = mutableListOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        val missingPermissions = permissions.filter {
+            ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (missingPermissions.isEmpty()) {
             getDeviceLocation()
         } else {
-            // Request permissions
-            requestPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
+            requestPermissionLauncher.launch(permissions.toTypedArray())
         }
     }
 
     private fun getDeviceLocation() {
-        // FIX: The compiler requires this explicit check right before calling lastLocation
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
-                    // Success! Pass actual coordinates to ViewModel
                     viewModel.loadHomeData(location.latitude, location.longitude)
+                    startPrayerService(location.latitude, location.longitude)
                 } else {
-                    // Fallback to Cairo if location is null (common on fresh emulators)
-                    viewModel.loadHomeData(30.0444, 31.2357)
+                    val lat = 30.0444
+                    val lng = 31.2357
+                    viewModel.loadHomeData(lat, lng)
+                    startPrayerService(lat, lng)
                 }
             }
         } else {
-            // Fallback if permissions are missing
-            viewModel.loadHomeData(30.0444, 31.2357)
+            val lat = 30.0444
+            val lng = 31.2357
+            viewModel.loadHomeData(lat, lng)
+            startPrayerService(lat, lng)
+        }
+    }
+
+    private fun startPrayerService(lat: Double, lng: Double) {
+        val intent = Intent(requireContext(), PrayerNotificationService::class.java)
+        intent.putExtra("lat", lat)
+        intent.putExtra("lng", lng)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            requireContext().startForegroundService(intent)
+        } else {
+            requireContext().startService(intent)
         }
     }
 

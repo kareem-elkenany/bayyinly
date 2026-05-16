@@ -124,7 +124,7 @@ class HomeViewModel(
         }
 
         _nextPrayerName.value = nextName
-        _nextPrayerTime.value = formatTo12Hour(nextTimeStr)
+        _nextPrayerTime.value = nextTimeStr // Pass raw 24h time, Fragment will format it
         startCountdown(nextTimeStr, isTomorrow)
     }
 
@@ -164,13 +164,6 @@ class HomeViewModel(
                 loadHomeData(lastLat, lastLng)
             }
         }.start()
-    }
-
-    private fun formatTo12Hour(time24: String): String {
-        return try {
-            val date = SimpleDateFormat("HH:mm", Locale.getDefault()).parse(time24.split(" ")[0])
-            SimpleDateFormat("h:mm a", Locale.getDefault()).format(date!!)
-        } catch (e: Exception) { time24 }
     }
 
     override fun onCleared() {
