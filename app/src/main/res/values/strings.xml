@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Bayyinly</string>
+    <plurals name="dua_count">
+        <item quantity="one">%d dua</item>
+        <item quantity="other">%d duas</item>
+    </plurals>
 </resources>
