@@ -43,17 +43,17 @@ class AzkarNotificationReceiver : BroadcastReceiver() {
                 when (intent.action) {
                     ACTION_MORNING -> {
                         val entries = repo.getEntriesByCategorySync(AzkarRepository.MORNING)
-                        showNotification(context, "Morning Azkar", entries.minByOrNull { it.zekr.length }, NOTIF_MORNING)
+                        showNotification(context, "Morning Azkar", entries.minByOrNull { it.zekr?.length ?: Int.MAX_VALUE }, NOTIF_MORNING)
                         AzkarNotificationScheduler.rescheduleForTomorrow(context, ACTION_MORNING)
                     }
                     ACTION_EVENING -> {
                         val entries = repo.getEntriesByCategorySync(AzkarRepository.EVENING)
-                        showNotification(context, "Evening Azkar", entries.minByOrNull { it.zekr.length }, NOTIF_EVENING)
+                        showNotification(context, "Evening Azkar", entries.minByOrNull { it.zekr?.length ?: Int.MAX_VALUE }, NOTIF_EVENING)
                         AzkarNotificationScheduler.rescheduleForTomorrow(context, ACTION_EVENING)
                     }
                     ACTION_SLEEP -> {
                         val entries = repo.getEntriesByCategorySync(AzkarRepository.SLEEP)
-                        showNotification(context, "Bedtime Azkar", entries.minByOrNull { it.zekr.length }, NOTIF_SLEEP)
+                        showNotification(context, "Bedtime Azkar", entries.minByOrNull { it.zekr?.length ?: Int.MAX_VALUE }, NOTIF_SLEEP)
                         AzkarNotificationScheduler.rescheduleForTomorrow(context, ACTION_SLEEP)
                     }
                     ACTION_RECURRING -> {

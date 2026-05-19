@@ -10,7 +10,7 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="18dp"
     app:cardElevation="2dp"
-    app:strokeColor="@color/card_border"
+    app:strokeColor="#F0F0F0"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -20,23 +20,38 @@
         android:padding="18dp">
 
         <!-- Header row: number badge + repeat count -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tvAzkarNumber"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                android:layout_alignParentStart="true"
                 tools:text="1" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tvAzkarRepeatCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:minWidth="42dp"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textColor="#1B5E20"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="3x" />
+
+        </RelativeLayout>
 
         <!-- Arabic text -->
         <TextView
@@ -47,29 +62,17 @@
             android:fontFamily="serif"
             android:gravity="center"
             android:lineSpacingMultiplier="1.6"
-            android:textColor="@color/text_dark"
+            android:textColor="#1F2D1E"
             android:textDirection="rtl"
             android:textSize="24sp"
             tools:text="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ" />
-
-        <!-- Transliteration (hidden when empty) -->
-        <TextView
-            android:id="@+id/tvAzkarTranslit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp"
-            tools:text="Subhaan Allahi wa bihamdihi" />
 
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
-            android:background="@color/divider" />
+            android:background="#F5F5F5" />
 
         <!-- Translation -->
         <TextView
@@ -78,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:lineSpacingExtra="3dp"
-            android:textColor="@color/text_dark_secondary"
+            android:textColor="#3E4E3B"
             android:textSize="14sp"
             tools:text="Glory and praise be to Allah." />
 
@@ -89,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="end"
-            android:textColor="@color/text_hint"
+            android:textColor="#8D856F"
             android:textSize="11sp"
             android:textStyle="bold"
             tools:text="Bukhari 6042" />

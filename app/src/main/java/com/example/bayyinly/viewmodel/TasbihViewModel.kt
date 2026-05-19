@@ -14,7 +14,36 @@ class TasbihViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repo = AzkarRepository(AzkarDatabase.getDatabase(app).azkarDao())
 
-    private var tasbihList: List<AzkarEntry> = emptyList()
+    private val tasbihList = listOf(
+        AzkarEntry(
+            id = -1,
+            category = "Tasbih",
+            zekr = "سُبْحَانَ اللهِ",
+            description = "Glory be to Allah",
+            count = 33,
+            reference = null,
+            search = "subhanallah"
+        ),
+        AzkarEntry(
+            id = -2,
+            category = "Tasbih",
+            zekr = "الْحَمْدُ للهِ",
+            description = "Praise be to Allah",
+            count = 33,
+            reference = null,
+            search = "alhamdulillah"
+        ),
+        AzkarEntry(
+            id = -3,
+            category = "Tasbih",
+            zekr = "اللهُ أَكْبَرُ",
+            description = "Allah is the Greatest",
+            count = 34,
+            reference = null,
+            search = "allahu akbar"
+        )
+    )
+
     private var azkarIndex = 0
 
     private val _currentAzkar = MutableLiveData<AzkarEntry?>()
@@ -30,19 +59,15 @@ class TasbihViewModel(app: Application) : AndroidViewModel(app) {
     val target: LiveData<Int> = _target
 
     init {
-        viewModelScope.launch {
-            tasbihList = repo.getEntriesByCategorySync(AzkarRepository.AFTER_PRAYER)
-            if (tasbihList.isNotEmpty()) {
-                _currentAzkar.value = tasbihList[0]
-                _target.value = tasbihList[0].count ?: 33
-            }
-        }
+        _currentAzkar.value = tasbihList[0]
+        _target.value = tasbihList[0].count ?: 33
     }
 
     fun increment() {
         val next = (_count.value ?: 0) + 1
         _totalCount.value = (_totalCount.value ?: 0) + 1
-        if (next >= (_target.value ?: 33)) {
+        val currentTarget = _target.value ?: 33
+        if (next >= currentTarget) {
             advanceToNextAzkar()
         } else {
             _count.value = next
@@ -56,10 +81,12 @@ class TasbihViewModel(app: Application) : AndroidViewModel(app) {
     fun reset() {
         _count.value = 0
         _totalCount.value = 0
+        azkarIndex = 0
+        _currentAzkar.value = tasbihList[0]
+        _target.value = tasbihList[0].count ?: 33
     }
 
     private fun advanceToNextAzkar() {
-        if (tasbihList.isEmpty()) return
         azkarIndex = (azkarIndex + 1) % tasbihList.size
         val azkar = tasbihList[azkarIndex]
         _currentAzkar.value = azkar

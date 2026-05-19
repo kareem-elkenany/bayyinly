@@ -59,17 +59,28 @@ class BeadView @JvmOverloads constructor(
 
     /**
      * Updates the counter and redraws the view.
-     * Small beads will turn dark green if their index is less than [newCount].
+     * ringPosition is derived from newCount to ensure it resets when the dhikr changes.
      */
     fun updateCount(newCount: Int, newTarget: Int = 33, totalCount: Int = 0) {
         this.count = newCount
         this.target = newTarget
-        this.ringPosition = totalCount % 33
+        // Corrected logic:
+        // 1. If count is 0, reset all beads (ringPosition = 0)
+        // 2. If count reaches target, fill all beads (ringPosition = 33)
+        // 3. Otherwise, calculate proportional progress
+        this.ringPosition = when {
+            newCount <= 0 -> 0
+            newCount >= newTarget -> 33
+            else -> (newCount * 33 / newTarget)
+        }
+
         invalidate()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        if (w <= 0 || h <= 0) return
+
         centerX = w / 2f
         centerY = h / 2f
         outerRadius = minOf(w, h) / 2f * 0.95f
@@ -78,17 +89,17 @@ class BeadView @JvmOverloads constructor(
         
         textPaint.textSize = innerBeadRadius * 0.6f
 
-        // Shader for counted (active) small beads - vibrant dark green
+        // Shader for counted (active) small beads
         activeRingBeadPaint.shader = RadialGradient(
-            0f, 0f, smallBeadRadius * 1.5f,
+            0f, 0f, (smallBeadRadius * 1.5f).coerceAtLeast(1f),
             intArrayOf(greenColor, darkGreenColor),
             floatArrayOf(0.2f, 1f),
             Shader.TileMode.CLAMP
         )
 
-        // Shader for uncounted (inactive) small beads - subtle gray
+        // Shader for counted (active) small beads
         inactiveRingBeadPaint.shader = RadialGradient(
-            0f, 0f, smallBeadRadius * 1.5f,
+            0f, 0f, (smallBeadRadius * 1.5f).coerceAtLeast(1f),
             intArrayOf(Color.parseColor("#E0E0E0"), inactiveGrayColor),
             floatArrayOf(0.2f, 1f),
             Shader.TileMode.CLAMP
@@ -96,7 +107,10 @@ class BeadView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        // 1. Draw ring — always 33 beads, one lights per swipe, resets at 33
+        if (outerRadius <= 0) return
+
+        // 1. Draw ring — always 33 visual beads
+        // i < ringPosition ensures beads light up in sequence
         for (i in 0 until 33) {
             val angle = Math.toRadians((i * 360.0 / 33) - 90.0)
             val bx = centerX + (outerRadius * 0.74f) * Math.cos(angle).toFloat()
@@ -115,14 +129,16 @@ class BeadView @JvmOverloads constructor(
         canvas.drawCircle(centerX, centerY + innerBeadRadius * 0.1f, innerBeadRadius, shadowPaint)
 
         // Gradient for main bead using app's green palette
-        mainBeadPaint.shader = RadialGradient(
-            centerX - innerBeadRadius * 0.3f,
-            centerY - innerBeadRadius * 0.3f,
-            innerBeadRadius * 1.6f,
-            intArrayOf(Color.WHITE, greenColor, darkGreenColor),
-            floatArrayOf(0f, 0.25f, 1f),
-            Shader.TileMode.CLAMP
-        )
+        if (innerBeadRadius > 0) {
+            mainBeadPaint.shader = RadialGradient(
+                centerX - innerBeadRadius * 0.3f,
+                centerY - innerBeadRadius * 0.3f,
+                innerBeadRadius * 1.6f,
+                intArrayOf(Color.WHITE, greenColor, darkGreenColor),
+                floatArrayOf(0f, 0.25f, 1f),
+                Shader.TileMode.CLAMP
+            )
+        }
         canvas.drawCircle(centerX, centerY, innerBeadRadius, mainBeadPaint)
 
         // Large Counter Text inside the main bead
