@@ -9,7 +9,7 @@ import com.example.bayyinly.model.local.DuaDao
 
 @Database(
     entities = [Dua::class],
-    version = 1,
+    version = 4,
     exportSchema = false
 )
 abstract class DuaDatabase : RoomDatabase() {
@@ -26,7 +26,10 @@ abstract class DuaDatabase : RoomDatabase() {
                     context.applicationContext,
                     DuaDatabase::class.java,
                     "dua_database"
-                ).build()
+                )
+                    .createFromAsset("dua_offline.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 instance

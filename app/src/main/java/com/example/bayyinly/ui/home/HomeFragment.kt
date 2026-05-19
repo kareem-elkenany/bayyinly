@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
             }
 
             binding.llCurrentPrayer.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = insets.top + (80 * resources.displayMetrics.density).toInt()
+                topMargin = insets.top + (64 * resources.displayMetrics.density).toInt()
             }
 
             windowInsets

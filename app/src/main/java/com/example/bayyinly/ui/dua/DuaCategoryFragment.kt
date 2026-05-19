@@ -11,13 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bayyinly.database.DuaDatabase
 import com.example.bayyinly.databinding.FragmentDuaCategoryBinding
-import com.example.bayyinly.model.DuaSeedData
 import com.example.bayyinly.model.entity.Dua
 import com.google.android.material.chip.Chip
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Locale
 
 class DuaCategoryFragment : Fragment() {
@@ -59,12 +56,6 @@ class DuaCategoryFragment : Fragment() {
     private fun loadDuas() {
         val duaDao = DuaDatabase.getDatabase(requireContext()).duaDao()
         viewLifecycleOwner.lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                if (duaDao.countDuas() == 0) {
-                    duaDao.insertAll(DuaSeedData.duas)
-                }
-            }
-
             duaDao.getAllDuas().collectLatest { duas ->
                 allDuas = duas
                 renderCategoryChips(duas)
