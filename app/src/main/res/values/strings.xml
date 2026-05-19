@@ -4,4 +4,14 @@
         <item quantity="one">%d dua</item>
         <item quantity="other">%d duas</item>
     </plurals>
+
+    <!-- Tasbih -->
+    <string name="tasbih_title">Tasbih</string>
+    <string name="tasbih_tap_instruction">Swipe down to count</string>
+    <string name="tasbih_reset">Reset</string>
+    <string name="default_counter">0</string>
+    <string name="tasbih_total">Total</string>
+    <string name="tasbih_progress">Progress</string>
+    <string name="tasbih_target">Target</string>
+    <string name="azkar_next">Next →</string>
 </resources>

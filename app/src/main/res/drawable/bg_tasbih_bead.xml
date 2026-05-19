@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Drop Shadow -->
+    <item android:top="8dp" android:left="8dp">
+        <shape android:shape="oval">
+            <solid android:color="#15000000" />
+        </shape>
+    </item>
+
+    <!-- Main Bead Body -->
+    <item android:bottom="4dp" android:right="4dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="180dp"
+                android:centerX="0.3"
+                android:centerY="0.3"
+                android:startColor="#FFFFFF"
+                android:centerColor="#A5D6A7"
+                android:endColor="#79AE6F" />
+            <stroke
+                android:width="2dp"
+                android:color="#5E8A56" />
+        </shape>
+    </item>
+
+    <!-- Glossy Shine Overlay -->
+    <item android:top="25dp" android:left="35dp" android:right="140dp" android:bottom="140dp">
+        <shape android:shape="oval">
+            <solid android:color="#80FFFFFF" />
+        </shape>
+    </item>
+</layer-list>
