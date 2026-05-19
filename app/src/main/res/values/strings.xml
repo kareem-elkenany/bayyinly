@@ -5,6 +5,49 @@
         <item quantity="other">%d duas</item>
     </plurals>
 
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="send">Send</string>
+
+    <!-- Home -->
+    <string name="ask_ai">ASK AI</string>
+    <string name="next_prayer">NEXT PRAYER</string>
+    <string name="today_timeline">Today\'s Timeline</string>
+    <string name="khatma_progress">KHATMA PROGRESS</string>
+    <string name="khatma_hold_to_reset">Hold to reset</string>
+    <string name="streak">STREAK</string>
+
+    <!-- Chat -->
+    <string name="chat_title">Bayyinly AI</string>
+    <string name="chat_hint">Ask anything about Islam…</string>
+    <string name="chat_ai_message_placeholder">AI Response</string>
+    <string name="chat_user_message_placeholder">User Message</string>
+
+    <!-- Dua -->
+    <string name="dua_header">Duas</string>
+    <string name="dua_subtitle">Choose what you want to pray for.</string>
+    <string name="dua_search_hint">Search duas…</string>
+    <string name="dua_search_description">Search duas</string>
+    <string name="dua_empty">No duas match your search.</string>
+
+    <!-- Qibla -->
+    <string name="qibla_header">Qibla</string>
+    <string name="qibla_subtitle">Use your phone compass to face Makkah.</string>
+    <string name="qibla_compass_description">Qibla compass</string>
+    <string name="qibla_start_instruction">Move your phone to start the compass.</string>
+    <string name="qibla_location_permission">Allow location so the app can calculate the Qibla direction from where you are.</string>
+    <string name="qibla_label">QIBLA</string>
+    <string name="heading_label">HEADING</string>
+    <string name="qibla_location_not_set">Location not set yet.</string>
+    <string name="use_my_location">Use my location</string>
+
+    <!-- Quran / Reading -->
+    <string name="surah_list_title">Surah List</string>
+    <string name="surah_search_hint">Search English or Arabic…</string>
+    <string name="reciter_label">RECITER</string>
+    <string name="from_ayah_label">FROM AYAH</string>
+    <string name="to_ayah_label">TO AYAH</string>
+
     <!-- Tasbih -->
     <string name="tasbih_title">Tasbih</string>
     <string name="tasbih_tap_instruction">Swipe down to count</string>
@@ -21,5 +64,14 @@
     <string name="azkar_browse_categories">Browse Categories</string>
     <string name="azkar_tasbih_title">Tasbih Counter</string>
     <string name="azkar_tasbih_subtitle">Swipe to count your dhikr</string>
-    <string name="back">Back</string>
+
+    <!-- Notification -->
+    <string name="notification_prayer_icon_description">Prayer Icon</string>
+
+    <!-- Azkar Notifications -->
+    <string name="azkar_notif_channel_name">Azkar Reminders</string>
+    <string name="azkar_notif_channel_desc">Daily reminders for Morning, Evening, and Bedtime Azkar</string>
+    <string name="azkar_notif_title_morning">Morning Azkar</string>
+    <string name="azkar_notif_title_evening">Evening Azkar</string>
+    <string name="azkar_notif_title_sleep">Bedtime Azkar</string>
 </resources>

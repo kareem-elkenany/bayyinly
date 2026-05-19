@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Brand Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#79AE6F</color>
     <color name="beige">#F0EAD6</color>
+    <color name="deep_green">#1B5E20</color>
+    <color name="dark_green_tint">#5C8754</color>
+    <color name="bead_stroke">#5E8A56</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#2D402B</color>
+    <color name="text_secondary">#5D6B5A</color>
+    <color name="text_tertiary">#A39A8A</color>
+    <color name="text_hint">#8D856F</color>
+    <color name="text_dark">#1F2D1E</color>
+    <color name="text_dark_secondary">#3E4E3B</color>
+    <color name="text_near_black">#1A1A1A</color>
+    <color name="text_dark_gray">#424242</color>
+    <color name="text_gray">#666666</color>
+    <color name="text_on_green">#EEF7EA</color>
+    <color name="text_label_on_green">#DDF0D7</color>
+
+    <!-- Accent -->
+    <color name="amber">#FFD54F</color>
+
+    <!-- Surfaces -->
+    <color name="surface_light">#F5F5F5</color>
+    <color name="surface_warm">#F3EFE0</color>
+    <color name="surface_green_light">#E8F5E9</color>
+
+    <!-- Borders and Dividers -->
+    <color name="progress_track">#D3CABA</color>
+    <color name="divider">#E8E0CC</color>
+    <color name="divider_light">#E0E0E0</color>
+    <color name="card_border">#E2D8BE</color>
+    <color name="card_border_light">#EAE2CC</color>
+    <color name="circle_border">#A5D6A7</color>
+    <color name="stroke_gray">#BBBBBB</color>
+
+    <!-- Overlays -->
+    <color name="white_transparent">#33FFFFFF</color>
+    <color name="white_semi">#80FFFFFF</color>
+    <color name="overlay_dark">#15000000</color>
 </resources>

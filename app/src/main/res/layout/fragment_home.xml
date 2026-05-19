@@ -16,7 +16,7 @@
         android:layout_height="360dp"
         android:scaleType="centerCrop"
         android:alpha="0.1"
-        app:tint="#5C8754"
+        app:tint="@color/dark_green_tint"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,11 +28,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
-        app:cardBackgroundColor="#33FFFFFF"
+        app:cardBackgroundColor="@color/white_transparent"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:strokeWidth="1dp"
-        app:strokeColor="#80FFFFFF"
+        app:strokeColor="@color/white_semi"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -49,13 +49,13 @@
                 android:layout_height="16dp"
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/ic_ai"
-                app:tint="#FFFFFF" />
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ASK AI"
-                android:textColor="#FFFFFF"
+                android:text="@string/ask_ai"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -75,8 +75,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NEXT PRAYER"
-            android:textColor="#DDF0D7"
+            android:text="@string/next_prayer"
+            android:textColor="@color/text_label_on_green"
             android:textSize="14sp"
             android:letterSpacing="0.1"
             android:fontFamily="sans-serif-medium" />
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Asr"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="56sp"
             android:textStyle="bold"
             android:layout_marginTop="-4dp"/>
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3:45 PM"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="22sp"
             android:alpha="0.9" />
 
@@ -105,12 +105,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="- 01:23:45"
-            android:textColor="#FFD54F"
+            android:textColor="@color/amber"
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="monospace"
             android:layout_marginTop="12dp"
-            android:background="#33FFFFFF"
+            android:background="@color/white_transparent"
             android:paddingHorizontal="24dp"
             android:paddingVertical="8dp"/>
     </LinearLayout>
@@ -146,8 +146,8 @@
                     android:id="@+id/tvTimelineTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Today's Timeline"
-                    android:textColor="#2D402B"
+                    android:text="@string/today_timeline"
+                    android:textColor="@color/text_primary"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -168,11 +168,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="5">
-                        <TextView android:id="@+id/tvTimelineFajr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Fajr\n4:30" android:gravity="center" android:textColor="#A39A8A" android:textSize="10sp"/>
-                        <TextView android:id="@+id/tvTimelineDhuhr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dhuhr\n12:15" android:gravity="center" android:textColor="#A39A8A" android:textSize="10sp"/>
-                        <TextView android:id="@+id/tvTimelineAsr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Asr\n15:45" android:gravity="center" android:textColor="#79AE6F" android:textStyle="bold" android:textSize="10sp"/>
-                        <TextView android:id="@+id/tvTimelineMaghrib" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Maghrib\n18:02" android:gravity="center" android:textColor="#2D402B" android:textSize="10sp"/>
-                        <TextView android:id="@+id/tvTimelineIsha" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Isha\n19:30" android:gravity="center" android:textColor="#2D402B" android:textSize="10sp"/>
+                        <TextView android:id="@+id/tvTimelineFajr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Fajr\n4:30" android:gravity="center" android:textColor="@color/text_tertiary" android:textSize="10sp"/>
+                        <TextView android:id="@+id/tvTimelineDhuhr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dhuhr\n12:15" android:gravity="center" android:textColor="@color/text_tertiary" android:textSize="10sp"/>
+                        <TextView android:id="@+id/tvTimelineAsr" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Asr\n15:45" android:gravity="center" android:textColor="@color/green" android:textStyle="bold" android:textSize="10sp"/>
+                        <TextView android:id="@+id/tvTimelineMaghrib" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Maghrib\n18:02" android:gravity="center" android:textColor="@color/text_primary" android:textSize="10sp"/>
+                        <TextView android:id="@+id/tvTimelineIsha" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Isha\n19:30" android:gravity="center" android:textColor="@color/text_primary" android:textSize="10sp"/>
                     </LinearLayout>
 
                     <FrameLayout
@@ -188,18 +188,18 @@
                             android:layout_marginHorizontal="30dp"
                             android:max="100"
                             android:progress="0"
-                            android:progressBackgroundTint="#D3CABA"
-                            android:progressTint="#79AE6F" />
+                            android:progressBackgroundTint="@color/progress_track"
+                            android:progressTint="@color/green" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="5">
-                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeFajr" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="#A39A8A" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
-                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeDhuhr" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="#A39A8A" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
-                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeAsr" android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" app:cardBackgroundColor="#79AE6F" app:cardCornerRadius="8dp" app:cardElevation="0dp" app:strokeWidth="2dp" app:strokeColor="#FFFFFF"/></FrameLayout>
-                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeMaghrib" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="#2D402B" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
-                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeIsha" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="#2D402B" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
+                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeFajr" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="@color/text_tertiary" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
+                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeDhuhr" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="@color/text_tertiary" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
+                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeAsr" android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" app:cardBackgroundColor="@color/green" app:cardCornerRadius="8dp" app:cardElevation="0dp" app:strokeWidth="2dp" app:strokeColor="@color/white"/></FrameLayout>
+                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeMaghrib" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="@color/text_primary" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
+                            <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"><com.google.android.material.card.MaterialCardView android:id="@+id/nodeIsha" android:layout_width="12dp" android:layout_height="12dp" android:layout_gravity="center" app:cardBackgroundColor="@color/text_primary" app:cardCornerRadius="6dp" app:cardElevation="0dp"/></FrameLayout>
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
@@ -221,7 +221,7 @@
                         android:layout_height="100dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="24dp">
 
                         <LinearLayout
@@ -233,8 +233,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="KHATMA PROGRESS"
-                                android:textColor="#5D6B5A"
+                                android:text="@string/khatma_progress"
+                                android:textColor="@color/text_secondary"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
                             <TextView
@@ -243,7 +243,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="0%"
-                                android:textColor="#2D402B"
+                                android:textColor="@color/text_primary"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
                             <TextView
@@ -251,8 +251,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:alpha="0.8"
-                                android:text="Hold to reset"
-                                android:textColor="#A39A8A"
+                                android:text="@string/khatma_hold_to_reset"
+                                android:textColor="@color/text_tertiary"
                                 android:textSize="10sp" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -264,7 +264,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:padding="12dp"
-                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="24dp">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -274,8 +274,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="STREAK"
-                                android:textColor="#5D6B5A"
+                                android:text="@string/streak"
+                                android:textColor="@color/text_secondary"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
                             <TextView
@@ -284,7 +284,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="7 Days"
-                                android:textColor="#2D402B"
+                                android:textColor="@color/text_primary"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>

@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
             android:paddingVertical="8dp"
-            android:text="AI Response"
-            android:textColor="#2D402B"
+            android:text="@string/chat_ai_message_placeholder"
+            android:textColor="@color/text_primary"
             android:textSize="14sp" />
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

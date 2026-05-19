@@ -15,19 +15,19 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back"
+        android:contentDescription="@string/back"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#1B5E20" />
+        app:tint="@color/deep_green" />
 
     <!-- Header Title -->
     <TextView
         android:id="@+id/tvChatTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bayyinly AI"
-        android:textColor="#1B5E20"
+        android:text="@string/chat_title"
+        android:textColor="@color/deep_green"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/btnBack"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:hint="Ask anything about Islam..."
+            android:hint="@string/chat_hint"
             android:inputType="textCapSentences"
             android:minHeight="48dp"
             android:paddingHorizontal="12dp"
@@ -74,7 +74,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Send"
+            android:contentDescription="@string/send"
             android:src="@android:drawable/ic_menu_send"
             app:tint="@color/green" />
     </LinearLayout>

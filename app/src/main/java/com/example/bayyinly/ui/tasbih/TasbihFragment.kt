@@ -66,8 +66,8 @@ class TasbihFragment : Fragment() {
         }
 
         viewModel.currentAzkar.observe(viewLifecycleOwner) { azkar ->
-            binding.tvAzkarArabic.text = azkar.arabic
-            binding.tvAzkarTranslation.text = azkar.translation
+            binding.tvAzkarArabic.text = azkar?.zekr ?: ""
+            binding.tvAzkarTranslation.text = azkar?.description ?: ""
         }
     }
 

@@ -7,37 +7,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bayyinly.databinding.ItemAzkarEntryBinding
-import com.example.bayyinly.model.Azkar
+import com.example.bayyinly.model.entity.AzkarEntry
 
 class AzkarEntryAdapter(
-    private val items: List<Azkar>,
+    private val items: List<AzkarEntry>,
     private val accentColor: String
 ) : RecyclerView.Adapter<AzkarEntryAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemAzkarEntryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(azkar: Azkar, position: Int) {
-            val badge = GradientDrawable().apply {
+        fun bind(entry: AzkarEntry, position: Int) {
+            binding.tvAzkarNumber.background = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
                 setColor(Color.parseColor(accentColor))
             }
-            binding.tvAzkarNumber.background = badge
             binding.tvAzkarNumber.text = (position + 1).toString()
 
-            binding.tvAzkarArabicEntry.text = azkar.arabic
+            binding.tvAzkarArabicEntry.text = entry.zekr
 
-            if (azkar.transliteration.isNotEmpty()) {
-                binding.tvAzkarTranslit.text = azkar.transliteration
-                binding.tvAzkarTranslit.visibility = View.VISIBLE
+            binding.tvAzkarTranslit.visibility = View.GONE
+
+            if (!entry.description.isNullOrEmpty()) {
+                binding.tvAzkarTranslationEntry.text = entry.description
+                binding.tvAzkarTranslationEntry.visibility = View.VISIBLE
             } else {
-                binding.tvAzkarTranslit.visibility = View.GONE
+                binding.tvAzkarTranslationEntry.visibility = View.GONE
             }
 
-            binding.tvAzkarTranslationEntry.text = azkar.translation
-
-            if (azkar.source.isNotEmpty()) {
-                binding.tvAzkarSource.text = azkar.source
+            if (!entry.reference.isNullOrEmpty()) {
+                binding.tvAzkarSource.text = entry.reference
                 binding.tvAzkarSource.visibility = View.VISIBLE
             } else {
                 binding.tvAzkarSource.visibility = View.GONE
@@ -52,8 +51,7 @@ class AzkarEntryAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(items[position], position)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], position)
 
     override fun getItemCount() = items.size
 }

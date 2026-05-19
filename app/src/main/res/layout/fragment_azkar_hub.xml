@@ -17,16 +17,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#5C8754" />
+        app:tint="@color/dark_green_tint" />
 
     <TextView
         android:id="@+id/tvAzkarHubTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
         android:text="@string/azkar_hub_title"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
         android:layout_marginTop="6dp"
         android:alpha="0.75"
         android:text="@string/azkar_hub_subtitle"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +91,7 @@
                         android:layout_height="44dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_tasbih"
-                        app:tint="#FFFFFF" />
+                        app:tint="@color/white" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -104,7 +104,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/azkar_tasbih_title"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@color/white"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
@@ -114,7 +114,7 @@
                             android:layout_marginTop="2dp"
                             android:alpha="0.75"
                             android:text="@string/azkar_tasbih_subtitle"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@color/white"
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -125,7 +125,7 @@
                         android:contentDescription="@null"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back"
-                        app:tint="#FFFFFF" />
+                        app:tint="@color/white" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -137,7 +137,7 @@
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/azkar_browse_categories"
-                android:textColor="#2D402B"
+                android:textColor="@color/text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

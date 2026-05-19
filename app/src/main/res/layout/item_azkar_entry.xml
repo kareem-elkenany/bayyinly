@@ -10,7 +10,7 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="18dp"
     app:cardElevation="2dp"
-    app:strokeColor="#E2D8BE"
+    app:strokeColor="@color/card_border"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -31,7 +31,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:gravity="center"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="1" />
@@ -47,7 +47,7 @@
             android:fontFamily="serif"
             android:gravity="center"
             android:lineSpacingMultiplier="1.6"
-            android:textColor="#1F2D1E"
+            android:textColor="@color/text_dark"
             android:textDirection="rtl"
             android:textSize="24sp"
             tools:text="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ" />
@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="serif"
             android:gravity="center"
-            android:textColor="#5D6B5A"
+            android:textColor="@color/text_secondary"
             android:textSize="13sp"
             tools:text="Subhaan Allahi wa bihamdihi" />
 
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
-            android:background="#E8E0CC" />
+            android:background="@color/divider" />
 
         <!-- Translation -->
         <TextView
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:lineSpacingExtra="3dp"
-            android:textColor="#3E4E3B"
+            android:textColor="@color/text_dark_secondary"
             android:textSize="14sp"
             tools:text="Glory and praise be to Allah." />
 
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="end"
-            android:textColor="#8D856F"
+            android:textColor="@color/text_hint"
             android:textSize="11sp"
             android:textStyle="bold"
             tools:text="Bukhari 6042" />

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="#F5F5F5">
+    android:background="@color/surface_light">
 
     <TextView
         android:id="@+id/tvSurahNameTitle"
@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         tools:text="1. Al-Fatiha (الفاتحة)"
-        android:textColor="#1B5E20"
+        android:textColor="@color/deep_green"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_arrow_back"
-        app:tint="#1B5E20"
+        app:tint="@color/deep_green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +44,7 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         tools:text="7 Ayahs"
-        android:textColor="#666666"
+        android:textColor="@color/text_gray"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tvSurahNameTitle" />
 
@@ -70,7 +70,7 @@
         android:layout_marginHorizontal="36dp"
         android:layout_marginBottom="16dp"
         android:visibility="gone"
-        app:cardBackgroundColor="#E8F5E9"
+        app:cardBackgroundColor="@color/surface_green_light"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,8 +88,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RECITER"
-                android:textColor="#1B5E20"
+                android:text="@string/reciter_label"
+                android:textColor="@color/deep_green"
                 android:textSize="9sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1" />
@@ -98,7 +98,7 @@
                 android:id="@+id/spinnerReciter"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:backgroundTint="#1B5E20"
+                android:backgroundTint="@color/deep_green"
                 android:theme="@style/ThemeOverlay.AppCompat.Light" />
 
             <!-- Ayah Range -->
@@ -117,8 +117,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="FROM AYAH"
-                        android:textColor="#1B5E20"
+                        android:text="@string/from_ayah_label"
+                        android:textColor="@color/deep_green"
                         android:textSize="9sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.1" />
@@ -126,7 +126,7 @@
                         android:id="@+id/spinnerStartAyah"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:backgroundTint="#1B5E20"
+                        android:backgroundTint="@color/deep_green"
                         android:theme="@style/ThemeOverlay.AppCompat.Light"/>
                 </LinearLayout>
 
@@ -144,8 +144,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TO AYAH"
-                        android:textColor="#1B5E20"
+                        android:text="@string/to_ayah_label"
+                        android:textColor="@color/deep_green"
                         android:textSize="9sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.1" />
@@ -153,7 +153,7 @@
                         android:id="@+id/spinnerEndAyah"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:backgroundTint="#1B5E20"
+                        android:backgroundTint="@color/deep_green"
                         android:theme="@style/ThemeOverlay.AppCompat.Light"/>
                 </LinearLayout>
             </LinearLayout>
@@ -172,7 +172,7 @@
                     android:layout_height="36dp"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_media_previous"
-                    app:tint="#1B5E20"
+                    app:tint="@color/deep_green"
                     android:background="?attr/selectableItemBackgroundBorderless"/>
 
                 <ImageView
@@ -182,7 +182,7 @@
                     android:layout_marginHorizontal="24dp"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_media_play"
-                    app:tint="#1B5E20"
+                    app:tint="@color/deep_green"
                     android:background="?attr/selectableItemBackgroundBorderless"/>
 
                 <ImageView
@@ -191,7 +191,7 @@
                     android:layout_height="36dp"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="#1B5E20"
+                    app:tint="@color/deep_green"
                     android:background="?attr/selectableItemBackgroundBorderless"/>
             </LinearLayout>
         </LinearLayout>

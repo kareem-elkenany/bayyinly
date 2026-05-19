@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/surface_light">
 
 
 
@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:layout_marginStart="16dp"
-        android:text="Surah List"
-        android:textColor="#1B5E20"
+        android:text="@string/surah_list_title"
+        android:textColor="@color/deep_green"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,8 +30,8 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:background="#E0E0E0"
-        android:hint="Search English or Arabic..."
+        android:background="@color/divider_light"
+        android:hint="@string/surah_search_hint"
         android:paddingHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/tvHeader"/>
 

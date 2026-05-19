@@ -9,6 +9,8 @@
         tools:node="replace" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -38,6 +40,19 @@
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Prayer timing updates and countdown for religious observance." />
         </service>
+
+        <receiver
+            android:name=".notification.AzkarNotificationReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.bayyinly.AZKAR_MORNING" />
+                <action android:name="com.example.bayyinly.AZKAR_EVENING" />
+                <action android:name="com.example.bayyinly.AZKAR_SLEEP" />
+                <action android:name="com.example.bayyinly.AZKAR_RECURRING" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

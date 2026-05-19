@@ -8,6 +8,7 @@ import com.example.bayyinly.R
 import com.example.bayyinly.databinding.ActivityMainBinding
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.bayyinly.notification.AzkarNotificationScheduler
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +18,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        // Import this at the top: androidx.appcompat.app.AppCompatDelegate
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(binding.root)
+
+        AzkarNotificationScheduler.scheduleAll(this)
 
         // 1. Get the Navigation Host Fragment
         val navHostFragment = supportFragmentManager

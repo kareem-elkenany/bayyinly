@@ -50,6 +50,11 @@ android {
     }
 }
 
+// Enable Kotlin code generation for Room to fix suspend function mismatches
+ksp {
+    arg("room.generateKotlin", "true")
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

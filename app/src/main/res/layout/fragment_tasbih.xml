@@ -19,14 +19,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#5C8754" />
+        app:tint="@color/dark_green_tint" />
 
     <ImageView
         android:id="@+id/btnBack"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="62dp"
         android:clickable="true"
         android:contentDescription="@string/back"
         android:focusable="true"
@@ -34,16 +34,16 @@
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#FFFFFF" />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tvTasbihHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
         android:text="@string/tasbih_title"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="14dp"
-                        android:background="#E8E0CC" />
+                        android:background="@color/divider" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnNextAzkar"
@@ -209,7 +209,7 @@
                     android:text="@string/tasbih_reset"
                     android:textColor="@color/black"
                     android:textSize="13sp"
-                    app:strokeColor="#BBBBBB"
+                    app:strokeColor="@color/stroke_gray"
                     app:strokeWidth="1dp" />
 
             </LinearLayout>

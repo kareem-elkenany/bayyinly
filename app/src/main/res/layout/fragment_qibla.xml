@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#5C8754" />
+        app:tint="@color/dark_green_tint" />
 
     <TextView
         android:id="@+id/tvQiblaHeader"
@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="56dp"
-        android:text="Qibla"
-        android:textColor="#FFFFFF"
+        android:text="@string/qibla_header"
+        android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="6dp"
-        android:text="Use your phone compass to face Makkah."
-        android:textColor="#EEF7EA"
+        android:text="@string/qibla_subtitle"
+        android:textColor="@color/text_on_green"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,10 +79,10 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="#E2D8BE"
+                    app:strokeColor="@color/card_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -96,7 +96,7 @@
                             android:id="@+id/qiblaCompassView"
                             android:layout_width="match_parent"
                             android:layout_height="280dp"
-                            android:contentDescription="Qibla compass" />
+                            android:contentDescription="@string/qibla_compass_description" />
 
                         <TextView
                             android:id="@+id/tvTurnInstruction"
@@ -104,8 +104,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:gravity="center"
-                            android:text="Move your phone to start the compass."
-                            android:textColor="#2D402B"
+                            android:text="@string/qibla_start_instruction"
+                            android:textColor="@color/text_primary"
                             android:textSize="21sp"
                             android:textStyle="bold" />
 
@@ -116,8 +116,8 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center"
                             android:lineSpacingExtra="3dp"
-                            android:text="Allow location so the app can calculate the Qibla direction from where you are."
-                            android:textColor="#5D6B5A"
+                            android:text="@string/qibla_location_permission"
+                            android:textColor="@color/text_secondary"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -135,7 +135,7 @@
                         android:layout_height="92dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="1dp">
 
@@ -149,8 +149,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="QIBLA"
-                                android:textColor="#5D6B5A"
+                                android:text="@string/qibla_label"
+                                android:textColor="@color/text_secondary"
                                 android:textSize="11sp"
                                 android:textStyle="bold" />
 
@@ -160,7 +160,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="--°"
-                                android:textColor="#2D402B"
+                                android:textColor="@color/text_primary"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -171,7 +171,7 @@
                         android:layout_height="92dp"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="1dp">
 
@@ -185,8 +185,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="HEADING"
-                                android:textColor="#5D6B5A"
+                                android:text="@string/heading_label"
+                                android:textColor="@color/text_secondary"
                                 android:textSize="11sp"
                                 android:textStyle="bold" />
 
@@ -196,7 +196,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="--°"
-                                android:textColor="#2D402B"
+                                android:textColor="@color/text_primary"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -207,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="1dp">
 
@@ -222,8 +222,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
-                            android:text="Location not set yet."
-                            android:textColor="#3E4E3B"
+                            android:text="@string/qibla_location_not_set"
+                            android:textColor="@color/text_dark_secondary"
                             android:textSize="14sp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -231,7 +231,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="52dp"
                             android:layout_marginTop="14dp"
-                            android:text="Use my location"
+                            android:text="@string/use_my_location"
                             android:textAllCaps="false"
                             android:textSize="15sp"
                             app:backgroundTint="@color/green"

@@ -8,10 +8,10 @@
     android:layout_marginHorizontal="2dp"
     android:layout_marginVertical="8dp"
     android:focusable="true"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="18dp"
     app:cardElevation="2dp"
-    app:strokeColor="#E2D8BE"
+    app:strokeColor="@color/card_border"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:background="@drawable/bg_dua_badge"
             android:paddingHorizontal="12dp"
             android:paddingVertical="5dp"
-            android:textColor="#2D402B"
+            android:textColor="@color/text_primary"
             android:textSize="12sp"
             android:textStyle="bold"
             tools:text="Success" />
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textColor="#2D402B"
+            android:textColor="@color/text_primary"
             android:textSize="19sp"
             android:textStyle="bold"
             tools:text="For ease and confidence" />
@@ -50,7 +50,7 @@
             android:fontFamily="serif"
             android:lineSpacingExtra="8dp"
             android:textAlignment="viewEnd"
-            android:textColor="#1F2D1E"
+            android:textColor="@color/text_dark"
             android:textDirection="rtl"
             android:textSize="25sp"
             tools:text="رَبِّ اشْرَحْ لِي صَدْرِي" />
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:lineSpacingExtra="3dp"
-            android:textColor="#5D6B5A"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
             tools:text="Rabbi ishrah li sadri." />
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="4dp"
-            android:textColor="#3E4E3B"
+            android:textColor="@color/text_dark_secondary"
             android:textSize="15sp"
             tools:text="My Lord, expand for me my chest." />
 
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textColor="#8D856F"
+            android:textColor="@color/text_hint"
             android:textSize="12sp"
             android:textStyle="bold"
             tools:text="Qur'an 20:25-26" />

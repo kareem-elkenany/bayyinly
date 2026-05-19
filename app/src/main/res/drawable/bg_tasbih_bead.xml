@@ -3,7 +3,7 @@
     <!-- Drop Shadow -->
     <item android:top="8dp" android:left="8dp">
         <shape android:shape="oval">
-            <solid android:color="#15000000" />
+            <solid android:color="@color/overlay_dark" />
         </shape>
     </item>
 
@@ -15,19 +15,19 @@
                 android:gradientRadius="180dp"
                 android:centerX="0.3"
                 android:centerY="0.3"
-                android:startColor="#FFFFFF"
-                android:centerColor="#A5D6A7"
-                android:endColor="#79AE6F" />
+                android:startColor="@color/white"
+                android:centerColor="@color/circle_border"
+                android:endColor="@color/green" />
             <stroke
                 android:width="2dp"
-                android:color="#5E8A56" />
+                android:color="@color/bead_stroke" />
         </shape>
     </item>
 
     <!-- Glossy Shine Overlay -->
     <item android:top="25dp" android:left="35dp" android:right="140dp" android:bottom="140dp">
         <shape android:shape="oval">
-            <solid android:color="#80FFFFFF" />
+            <solid android:color="@color/white_semi" />
         </shape>
     </item>
 </layer-list>
