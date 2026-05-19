@@ -10,7 +10,7 @@ class TasbihViewModel : ViewModel() {
 
     private var azkarIndex = 0
 
-    private val _currentAzkar = MutableLiveData<Azkar>(AzkarData.list[0])
+    private val _currentAzkar = MutableLiveData<Azkar>(AzkarData.tasbihList[0])
     val currentAzkar: LiveData<Azkar> = _currentAzkar
 
     private val _count = MutableLiveData(0)
@@ -19,7 +19,7 @@ class TasbihViewModel : ViewModel() {
     private val _totalCount = MutableLiveData(0)
     val totalCount: LiveData<Int> = _totalCount
 
-    private val _target = MutableLiveData(AzkarData.list[0].count)
+    private val _target = MutableLiveData(AzkarData.tasbihList[0].count)
     val target: LiveData<Int> = _target
 
     fun increment() {
@@ -42,8 +42,8 @@ class TasbihViewModel : ViewModel() {
     }
 
     private fun advanceToNextAzkar() {
-        azkarIndex = (azkarIndex + 1) % AzkarData.list.size
-        val azkar = AzkarData.list[azkarIndex]
+        azkarIndex = (azkarIndex + 1) % AzkarData.tasbihList.size
+        val azkar = AzkarData.tasbihList[azkarIndex]
         _currentAzkar.value = azkar
         _target.value = azkar.count
         _count.value = 0

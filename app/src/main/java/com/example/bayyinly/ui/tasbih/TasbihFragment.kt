@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.bayyinly.databinding.FragmentTasbihBinding
 import com.example.bayyinly.viewmodel.TasbihViewModel
 
@@ -45,6 +46,7 @@ class TasbihFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
         binding.btnReset.setOnClickListener { viewModel.reset() }
         binding.btnNextAzkar.setOnClickListener { viewModel.nextAzkar() }
     }
@@ -66,7 +68,6 @@ class TasbihFragment : Fragment() {
         viewModel.currentAzkar.observe(viewLifecycleOwner) { azkar ->
             binding.tvAzkarArabic.text = azkar.arabic
             binding.tvAzkarTranslation.text = azkar.translation
-            binding.tvAzkarCount.text = "× ${azkar.count}"
         }
     }
 

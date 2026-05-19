@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.readingFragment || destination.id == R.id.nav_chat) { 
+            if (destination.id == R.id.readingFragment || destination.id == R.id.nav_chat || destination.id == R.id.nav_tasbih || destination.id == R.id.nav_azkar_detail) {
                 // Hide it on the Reading Screen and Chat Screen
                 binding.bottomNav.visibility = View.GONE
             } else {

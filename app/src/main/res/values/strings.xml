@@ -14,4 +14,12 @@
     <string name="tasbih_progress">Progress</string>
     <string name="tasbih_target">Target</string>
     <string name="azkar_next">Next →</string>
+
+    <!-- Azkar Hub -->
+    <string name="azkar_hub_title">Azkar</string>
+    <string name="azkar_hub_subtitle">Daily remembrance</string>
+    <string name="azkar_browse_categories">Browse Categories</string>
+    <string name="azkar_tasbih_title">Tasbih Counter</string>
+    <string name="azkar_tasbih_subtitle">Swipe to count your dhikr</string>
+    <string name="back">Back</string>
 </resources>

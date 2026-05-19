@@ -3,69 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_home"> <!-- 1. Changed starting screen to Home -->
+    app:startDestination="@id/nav_home">
 
-    <!-- Home/Dashboard Destination -->
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.bayyinly.ui.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" >
-
-        <!-- 2. Action to allow the Ask AI button to navigate to Chat -->
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_chat"
             app:destination="@id/nav_chat" />
     </fragment>
 
-    <!-- Quran Destination (Matches your menu ID) -->
     <fragment
         android:id="@+id/nav_quran"
         android:name="com.example.bayyinly.ui.quran.SurahListFragment"
         android:label="Quran"
-        tools:layout="@layout/fragment_surah_list" >
-
+        tools:layout="@layout/fragment_surah_list">
         <action
             android:id="@+id/action_nav_quran_to_readingFragment"
             app:destination="@id/readingFragment" />
     </fragment>
 
-    <!-- Qibla Destination -->
     <fragment
         android:id="@+id/nav_qibla"
         android:name="com.example.bayyinly.ui.qibla.QiblaFragment"
         android:label="Qibla"
         tools:layout="@layout/fragment_qibla" />
 
-    <!-- Duas Destination -->
     <fragment
         android:id="@+id/nav_duas"
         android:name="com.example.bayyinly.ui.dua.DuaCategoryFragment"
         android:label="Duas"
         tools:layout="@layout/fragment_dua_category" />
 
-    <!-- Tasbih Destination -->
+    <!-- Azkar hub (bottom nav destination) -->
+    <fragment
+        android:id="@+id/nav_azkar"
+        android:name="com.example.bayyinly.ui.tasbih.AzkarHubFragment"
+        android:label="Azkar"
+        tools:layout="@layout/fragment_azkar_hub">
+        <action
+            android:id="@+id/action_nav_azkar_to_nav_tasbih"
+            app:destination="@id/nav_tasbih" />
+        <action
+            android:id="@+id/action_nav_azkar_to_nav_azkar_detail"
+            app:destination="@id/nav_azkar_detail" />
+    </fragment>
+
+    <!-- Tasbih counter (sub-destination, not in bottom nav) -->
     <fragment
         android:id="@+id/nav_tasbih"
         android:name="com.example.bayyinly.ui.tasbih.TasbihFragment"
         android:label="Tasbih"
         tools:layout="@layout/fragment_tasbih" />
 
-    <!-- AI Chat Destination -->
+    <!-- Azkar category detail (sub-destination, not in bottom nav) -->
+    <fragment
+        android:id="@+id/nav_azkar_detail"
+        android:name="com.example.bayyinly.ui.tasbih.AzkarDetailFragment"
+        android:label="Azkar Detail"
+        tools:layout="@layout/fragment_azkar_detail">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/nav_chat"
         android:name="com.example.bayyinly.ui.chat.ChatFragment"
         android:label="AI Assistant"
         tools:layout="@layout/fragment_chat" />
 
-    <!-- The Reading Screen -->
     <fragment
         android:id="@+id/readingFragment"
         android:name="com.example.bayyinly.ui.quran.ReadingFragment"
         android:label="Read Surah"
-        tools:layout="@layout/fragment_reading" >
-
-        <!-- 3. Explicitly declaring the argument this fragment expects -->
+        tools:layout="@layout/fragment_reading">
         <argument
             android:name="surahId"
             app:argType="integer"
